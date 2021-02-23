@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args)
     {
         int sourceAmount = 3, destinationAmount = 3;
-        Problem firstProblem = new Problem(3, 3);
+        Problem firstProblem = new Problem(sourceAmount, destinationAmount);
         firstProblem.setSources("S1", SourceType.WAREHOUSE);
         firstProblem.setSources("S2", SourceType.FACTORY);
         firstProblem.setSources("S3", SourceType.FACTORY);
