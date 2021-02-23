@@ -65,5 +65,31 @@ public class Problem {
     {
         return destinations[index].getName();
     }
+
+    @Override
+    public String toString() {
+        String strReturn = "";
+                strReturn += String.format("%-3s", "");
+        for (int i = 0; i < destinationAmount; i++)
+            strReturn += String.format("%-3s", this.getDestinationName(i));
+        strReturn += String.format("\n");
+        for (int i = 0; i < sourceAmount; i++)
+        {
+            strReturn += String.format("%-3s", this.getSourceName(i));
+            for (int j = 0; j < destinationAmount; j++)
+                strReturn += String.format("%-3d", this.getCostMatrix(i,j));
+            strReturn += String.format("\n");
+        }
+        for (int i = 0; i < destinationAmount; i++)
+        {
+            strReturn += String.format("%s %-2d ",this.getDestinationName(i) + ":",this.getSupply(i));
+        }
+        strReturn += String.format("\n");
+        for (int i = 0; i < sourceAmount; i++)
+        {
+            strReturn += String.format("%s %-2d ",this.getSourceName(i) + ":",this.getDemand(i));
+        }
+        return strReturn;
+    }
     
 }

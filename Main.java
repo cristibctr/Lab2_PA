@@ -22,25 +22,6 @@ public class Main {
         firstProblem.setDestinations("D2");
         firstProblem.setDestinations("D3");
         //Print costMatrix, supply and demand
-        System.out.printf("%-3s", "");
-        for (int i = 0; i < destinationAmount; i++)
-            System.out.printf("%-3s", firstProblem.getDestinationName(i));
-        System.out.println();
-        for (int i = 0; i < sourceAmount; i++)
-        {
-            System.out.printf("%-3s", firstProblem.getSourceName(i));
-            for (int j = 0; j < destinationAmount; j++)
-                System.out.printf("%-3d", firstProblem.getCostMatrix(i,j));
-            System.out.println();
-        }
-        for (int i = 0; i < destinationAmount; i++)
-        {
-            System.out.printf("%s %-2d ",firstProblem.getDestinationName(i) + ":",firstProblem.getSupply(i));
-        }
-        System.out.println();
-        for (int i = 0; i < sourceAmount; i++)
-        {
-            System.out.printf("%s %-2d ",firstProblem.getSourceName(i) + ":",firstProblem.getDemand(i));
-        }
+        System.out.println(firstProblem);
     }
 }
