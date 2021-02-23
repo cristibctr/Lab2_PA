@@ -21,7 +21,7 @@ public class Main {
         firstProblem.setDestinations("D1");
         firstProblem.setDestinations("D2");
         firstProblem.setDestinations("D3");
-        //Print costMatrix
+        //Print costMatrix, supply and demand
         System.out.printf("%-3s", "");
         for (int i = 0; i < destinationAmount; i++)
             System.out.printf("%-3s", firstProblem.getDestinationName(i));
