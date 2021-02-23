@@ -1,3 +1,5 @@
 # Lab2_PA
 
-Am rezolvat cerintele de la Compulsory in timpul laboratorului
+cerintele rezolvate de la Compulsory in timpul laboratorului
+
+Bucataru Cristian-Stefan
