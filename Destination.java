@@ -5,9 +5,11 @@
  */
 package com.mycompany.lab2_pa;
 
+import java.util.Objects;
+
 /**
  *
- * @author crist
+ * @author cristi
  */
 public class Destination {
     private String name;
@@ -34,4 +36,29 @@ public class Destination {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Destination other = (Destination) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
+    }
+    
 }

@@ -5,17 +5,18 @@
  */
 package com.mycompany.lab2_pa;
 
+import java.util.Objects;
+
 /**
  *
- * @author crist
+ * @author cristi
  */
-public class Source {
+public abstract class Source {
     private String name;
     private SourceType initType;
     
-    public Source(String name, SourceType initType) {
+    public Source(String name) {
         this.name = name;
-        this.initType = initType;
     }
 
     @Override
@@ -49,6 +50,30 @@ public class Source {
      */
     public void setInitType(SourceType initType) {
         this.initType = initType;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Source other = (Source) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
     }
     
 }

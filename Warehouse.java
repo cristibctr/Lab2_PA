@@ -9,6 +9,9 @@ package com.mycompany.lab2_pa;
  *
  * @author cristi
  */
-public enum SourceType {
-    WAREHOUSE, FACTORY;
+public class Warehouse extends Source{
+    public Warehouse(String name)
+    {
+        super(name);
+    }
 }

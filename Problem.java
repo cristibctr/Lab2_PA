@@ -8,7 +8,7 @@ package com.mycompany.lab2_pa;
 import java.util.ArrayList;
 /**
  *
- * @author crist
+ * @author cristi
  */
 public class Problem {  
     
@@ -16,46 +16,107 @@ public class Problem {
     private Destination[] destinations;
     private int[][] costMatrix;
     private int[] supply, demand;
+    //variables to increment when creating a new object - usefull to keep track on the amount of sources and destinations created [NOT AVAILABLE IN TOTAL]
     private int sourceAmount = 0, destinationAmount = 0;
-    public Problem(int destAmount, int srcAmount)
+    public Problem()
     {
-        sources = new Source[srcAmount];
-        destinations = new Destination[destAmount];
-        supply = new int[srcAmount];
-        demand = new int[destAmount];
-        costMatrix = new int[srcAmount][destAmount];
-        //populate supply and demand
-        for (int i = 0; i < srcAmount; i++)
-            supply[i] = (int) ((Math.random() * 1000000)%100);
-        for (int i = 0; i < destAmount; i++)
-            demand[i] = (int) ((Math.random() * 1000000)%100);
-        
-        //Populate matrix
-        for (int i = 0; i < srcAmount; i++)
-            for (int j = 0; j < destAmount; j++)
-                costMatrix[i][j] = (int) ((Math.random() * 1000000)%10);
+        System.out.println("Created a new problem!");
     }
-    public void setSources(String str, SourceType source)
+    public void setSources(Source[] sources)
     {
-        sources[sourceAmount] = new Source(str, source);
-        sourceAmount++;
+        this.sources = sources;
+        sourceAmount = sources.length;
+
+        //checks the created objects if they are the same and exists if one is found
+        for(int i = 0; i < sourceAmount-1; i++)
+            for(int j = i+1; j < sourceAmount; j++)
+            if(sources[i].equals(sources[j]))
+            {
+                System.out.println("Can't have the same source object more than once: " + sources[i].getName());
+                sources[i] = null;
+                sources[j] = null;
+                System.exit(0);
+            }
     }
-    public void setDestinations(String str)
+    public void setDestinations(Destination[] destinations)
     {
-        destinations[destinationAmount] = new Destination(str);
-        destinationAmount++;
+        this.destinations = destinations;
+        destinationAmount = destinations.length;
+        //checks previous created objects if they are the same and sets null if one is found
+        for(int i = 0; i < destinationAmount-1; i++)
+            for(int j = i+1; j < destinationAmount; j++)
+            if(destinations[i].equals(destinations[j]))
+            {
+                System.out.println("Can't have the same destination object more than once: " + destinations[i].getName());
+                destinations[i] = null;
+                destinations[j] = null;
+                System.exit(0);
+            }
+    }
+    public void randomCostMatrix()
+    {
+        costMatrix = new int[sourceAmount][destinationAmount];
+        //Populate matrix of cost randomly
+        for (int i = 0; i < sourceAmount; i++)
+            for (int j = 0; j < destinationAmount; j++)
+                costMatrix[i][j] = (int) ((Math.random() * 1000000)%10) + 1;
+    }
+    public void randomDemand()
+    {
+        demand = new int[destinationAmount];
+        for (int i = 0; i < destinationAmount; i++)
+            demand[i] = (int) ((Math.random() * 1000000)%100) + 1;
+    }
+    public void randomSupply()
+    {
+        supply = new int[sourceAmount];
+        for (int i = 0; i < sourceAmount; i++)
+            supply[i] = (int) ((Math.random() * 1000000)%100) + 1;
+    }
+    public int getCostMatrixIndex(int line, int column) {
+        return costMatrix[line][column];
     }
 
-    public int getCostMatrix(int line, int column) {
-        return costMatrix[line][column];
+    public int[][] getCostMatrix() {
+        return costMatrix;
     }
 
     public int getSupply(int index) {
         return supply[index];
     }
 
+    public int[] getSupply() {
+        return supply;
+    }
+    
+    public void setCostMatrix(int[][] costMatrix) {
+        this.costMatrix = costMatrix;
+    }
+
+    public void setSupply(int[] supply) {
+        this.supply = new int[sourceAmount];
+        System.arraycopy(supply, 0, this.supply, 0, supply.length);
+    }
+
+    public void setDemand(int[] demand) {
+        this.demand = new int[destinationAmount];
+        System.arraycopy(demand, 0, this.demand, 0, demand.length);
+    }
+    
+    public void setSupplyIndex(int position, int supply) {
+        this.supply[position] = supply;
+    }
+
+    public void setDemandIndex(int position, int demand) {
+        this.demand[position] = demand;
+    }
+    
     public int getDemand(int index) {
         return demand[index];
+    }
+    public int[] getDemand()
+    {
+        return demand;
     }
     public String getSourceName(int index)
     {
@@ -66,8 +127,18 @@ public class Problem {
         return destinations[index].getName();
     }
 
+    public int getSourceAmount() {
+        return sourceAmount;
+    }
+
+    public int getDestinationAmount() {
+        return destinationAmount;
+    }
+    
+    
     @Override
     public String toString() {
+        //concatenates to strRreturn the final form for before printing. Uses String.format for formating.
         String strReturn = "";
                 strReturn += String.format("%-3s", "");
         for (int i = 0; i < destinationAmount; i++)
@@ -77,19 +148,18 @@ public class Problem {
         {
             strReturn += String.format("%-3s", this.getSourceName(i));
             for (int j = 0; j < destinationAmount; j++)
-                strReturn += String.format("%-3d", this.getCostMatrix(i,j));
+                strReturn += String.format("%-3d", costMatrix[i][j]);
             strReturn += String.format("\n");
         }
-        for (int i = 0; i < destinationAmount; i++)
-        {
-            strReturn += String.format("%s %-2d ",this.getDestinationName(i) + ":",this.getSupply(i));
-        }
-        strReturn += String.format("\n");
         for (int i = 0; i < sourceAmount; i++)
         {
-            strReturn += String.format("%s %-2d ",this.getSourceName(i) + ":",this.getDemand(i));
+            strReturn += String.format("%s %-2d ",this.getSourceName(i) + ":", supply[i]);
+        }
+        strReturn += String.format("\n");
+        for (int i = 0; i < destinationAmount; i++)
+        {
+            strReturn += String.format("%s %-2d ",this.getDestinationName(i) + ":", demand[i]);
         }
         return strReturn;
     }
-    
 }

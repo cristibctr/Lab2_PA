@@ -9,6 +9,7 @@ package com.mycompany.lab2_pa;
  *
  * @author cristi
  */
-public enum SourceType {
-    WAREHOUSE, FACTORY;
+public abstract class Algorithm {
+    Problem pb;
+    public abstract Solution solve();
 }
